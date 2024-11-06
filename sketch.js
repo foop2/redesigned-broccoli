@@ -2,7 +2,7 @@ let fluid;
 let isPaused = -1;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(windowWidth, windowHeight);
   frameRate(24);
   fluid = new Fluid(0.2, 0, 0.0000001);
 }
