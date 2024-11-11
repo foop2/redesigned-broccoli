@@ -1,7 +1,6 @@
 let fluid;
 let isPaused = -1;
 let isCrazy = -1;
-let perlinVars = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -49,15 +48,8 @@ function draw() {
     fluid.step();
     fluid.renderD();
   }  
-  //for perlin noise
-    if (isPaused === -1 && isCrazy === 1) {
-      for (let i = 0; i < 7; i++) {
-        perlinVars[i] = noise(i * 0.1) * 100;
-      }
-           
-      // Update the last updated frame
-      lastUpdatedFrame = frameCount;
-     }
+  
+  
   console.log(`isPaused is ${isPaused}`)
   console.log(`isCrazy is ${isCrazy}`)
 }//END OF DRAW
