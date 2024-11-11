@@ -1,31 +1,37 @@
 let fluid;
 let isPaused = -1;
+let isCrazy = -1;
+let perlinVars = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(24);
   fluid = new Fluid(0.2, 0, 0.0000001);
 }
-
+//resizes canvas to fit window
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight)
+}
 
 function draw() {
   stroke(51);
   strokeWeight(2);
-
-  //makes text when paused
+  
   if (isPaused === 1) {
     push();
-    textAlign(CENTER, TOP);
-    textSize(75);
+    textAlign(CENTER, CENTER);
+    textSize(150);
     fill('white');
     strokeWeight(6);
     stroke('black');
-    text('Paused', width / 2, height / 2)
+    text('Paused', windowWidth / 2, windowHeight / 2)
     pop();
   }
+
+  
   
   if (isPaused === -1) {
-    //checks if its paused or not before doing things
+    //checks if its not paused before doing things
     let cx = int((0.5 * width) / SCALE);
     let cy = int((0.5 * height) / SCALE);
     for (let i = -1; i <= 1; i++) {
@@ -33,7 +39,6 @@ function draw() {
         fluid.addDensity(cx + i, cy + j, random(50, 150));
       }
     }
-
     for (let i = 0; i < 2; i++) {
       let angle = noise(t) * TWO_PI * 2;
       let v = p5.Vector.fromAngle(angle);
@@ -44,16 +49,39 @@ function draw() {
     fluid.step();
     fluid.renderD();
   }  
-}
+  //for perlin noise
+    if (isPaused === -1 && isCrazy === 1) {
+      for (let i = 0; i < 7; i++) {
+        perlinVars[i] = noise(i * 0.1) * 100;
+      }
+           
+      // Update the last updated frame
+      lastUpdatedFrame = frameCount;
+     }
+  console.log(`isPaused is ${isPaused}`)
+  console.log(`isCrazy is ${isCrazy}`)
+}//END OF DRAW
   
-  //pause/unpause detection feature
+  //pause/unpause switch feature
 
   function keyPressed() {
   if (key === 'p') {
     isPaused *= -1 //'p' changes -1 to 1, if its -1 simulation plays, if its 1 it does not play
+  } else if (key === 'f') {
+    let fs = fullscreen();
+    fullscreen(!fs);
+    //fullscreen
+  } else if (key === 'c') {
+    if (isPaused === -1) { 
+      //if is here so if c is pressed while paused dos nothing
+      isCrazy *= -1
+    }
   }
 }
 
+
+
+//CREDITS
 // Fluid Simulation
 // Daniel Shiffman
 // https://thecodingtrain.com/CodingChallenges/132-fluid-simulation.html
