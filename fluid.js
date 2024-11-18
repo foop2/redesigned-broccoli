@@ -1,6 +1,6 @@
 let N = 256;
 let iter = 16;
-let SCALE = 4;
+let SCALE = 5; //this variable from 4 to 5 fixed the scaling issue
 let t = 0;
 
 // function to use 1D array and fake the extra two dimensions --> 3D
