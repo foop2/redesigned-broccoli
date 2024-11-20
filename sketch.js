@@ -1,6 +1,8 @@
 let fluid;
-let isPaused = -1;
-let isCrazy = -1;
+let isPaused = false;
+let isCrazy = false;
+let debug = false;
+let menuScreen = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,7 +18,13 @@ function draw() {
   stroke(51);
   strokeWeight(2);
   
-  if (isPaused === 1) {
+  //menu
+  if (menuScreen) {
+      fill('gray')
+      rect(0, 0, width, height)
+  }
+  
+  if (isPaused) {
     push();
     textAlign(CENTER, CENTER);
     textSize(150);
@@ -26,10 +34,8 @@ function draw() {
     text('Paused', windowWidth / 2, windowHeight / 2)
     pop();
   }
-
   
-  
-  if (isPaused === -1) {
+  if (!isPaused) {
     //checks if its not paused before doing things
     let cx = int((0.5 * width) / SCALE);
     let cy = int((0.5 * height) / SCALE);
@@ -48,39 +54,35 @@ function draw() {
     fluid.step();
     fluid.renderD();
   }  
-  
-  
-  console.log(`isPaused is ${isPaused}`)
-  console.log(`isCrazy is ${isCrazy}`)
 }//END OF DRAW
-  
-  //pause/unpause switch feature
-
-  function keyPressed() {
+ 
+function keyPressed() {
   if (key === 'p') {
-    isPaused *= -1 //'p' changes -1 to 1, if its -1 simulation plays, if its 1 it does not play
+    isPaused = !isPaused;  // toggle paused
   } else if (key === 'f') {
-    let fs = fullscreen();
-    fullscreen(!fs);
-    //fullscreen
-  } else if (key === 'c') {
-    if (isPaused === -1) { 
-      //if is here so if c is pressed while paused dos nothing
-      isCrazy *= -1
-    }
+    fullscreen(!fullscreen());  // toggle fullscreen
+  } else if (key === 'c' && isPaused === false) {
+    isCrazy = !isCrazy;  // toggle crazy but only if unpaused
+  } else if (key === 'd') {
+    console.log(`isPaused is ${isPaused}`)
+    console.log(`isCrazy is ${isCrazy}`)
+    console.log(`menuScreen is ${menuScreen}`)  
+  } else if (key === 'm') {
+    menuScreen = !menuScreen;  // toggle menu
   }
 }
 
 
 
-//CREDITS
-// Fluid Simulation
-// Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/132-fluid-simulation.html
-// https://youtu.be/alhpH6ECFvQ
-
-// This would not be possible without:
-// Real-Time Fluid Dynamics for Games by Jos Stam
-// http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
-// Fluid Simulation for Dummies by Mike Ash
-// https://mikeash.com/pyblog/fluid-simulation-for-dummies.html
+/*
+CREDITS
+ Fluid Simulation
+ Daniel Shiffman
+ https://thecodingtrain.com/CodingChallenges/132-fluid-simulation.html
+ https://youtu.be/alhpH6ECFvQ
+ This would not be possible without:
+ Real-Time Fluid Dynamics for Games by Jos Stam
+ http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
+ Fluid Simulation for Dummies by Mike Ash
+ https://mikeash.com/pyblog/fluid-simulation-for-dummies.html
+ */
