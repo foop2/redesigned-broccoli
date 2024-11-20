@@ -1,7 +1,7 @@
 let fluid;
 let isPaused = false;
 let isCrazy = false;
-let menuScreen = false;
+let menuScreen = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -53,6 +53,19 @@ function draw() {
     fluid.step();
     fluid.renderD();
   }  
+  //increments crazy by one so it can cycle through
+  crazyVarR += 10 
+  if (crazyVarR >= 195) {
+    crazyVarR = 73
+  }
+  crazyVarG += 10 
+  if (crazyVarG >= 195) {
+    crazyVarG = 69
+  }
+  crazyVarB += 10 
+  if (crazyVarB >= 195) {
+    crazyVarB = 57
+  }
 }//END OF DRAW
  
 function keyPressed() {
@@ -69,7 +82,7 @@ function keyPressed() {
   } else if (key === 'm') {
     menuScreen = !menuScreen;  // toggle menu
   }
-}
+} 
 
 
 

@@ -1,7 +1,11 @@
 let N = 256;
 let iter = 16;
-let SCALE = 5; //this variable from 4 to 5 fixed the scaling issue
+let SCALE = 5; //this variable from 4 to 5 fixed the scaling issue 
 let t = 0;
+let crazyVarR = 7;
+let crazyVarG = 13;
+let crazyVarB = 29;
+
 
 // function to use 1D array and fake the extra two dimensions --> 3D
 function IX(x, y) {
@@ -65,10 +69,23 @@ class Fluid {
     this.Vy[index] += amountY;
   }
 
-  // function to render density
+  // function to render density (and color)
   renderD() {
-    colorMode(HSB, 255);
-    for (let i = 0; i < N; i++) {
+    if (isCrazy) { //CRAAAAAZYY!!11!
+      colorMode(RGB);
+      for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        let x = i * SCALE;
+        let y = j * SCALE;
+        let d = this.density[IX(i, j)];
+        fill((d + 50) % crazyVarR, crazyVarG, crazyVarB, d);
+        noStroke();
+        square(x, y, SCALE);
+        }
+      }
+    } else {
+      colorMode(HSB, 255)
+      for (let i = 0; i < N; i++) {
       for (let j = 0; j < N; j++) {
         let x = i * SCALE;
         let y = j * SCALE;
@@ -79,6 +96,7 @@ class Fluid {
       }
     }
   }
+}
 
   // function to render velocity
   renderV() {
@@ -103,5 +121,4 @@ class Fluid {
       this.density = constrain(this.density-0.02, 0, 255);
     }
   }
-  
 }
