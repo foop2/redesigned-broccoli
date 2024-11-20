@@ -1,8 +1,7 @@
 let fluid;
 let isPaused = false;
 let isCrazy = false;
-let debug = false;
-let menuScreen = true;
+let menuScreen = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -19,7 +18,7 @@ function draw() {
   strokeWeight(2);
   
   //menu
-  if (menuScreen) {
+  if (menuScreen === true) {
       fill('gray')
       rect(0, 0, width, height)
   }
@@ -66,7 +65,7 @@ function keyPressed() {
   } else if (key === 'd') {
     console.log(`isPaused is ${isPaused}`)
     console.log(`isCrazy is ${isCrazy}`)
-    console.log(`menuScreen is ${menuScreen}`)  
+    console.log(`menuScreen is ${menuScreen}`)
   } else if (key === 'm') {
     menuScreen = !menuScreen;  // toggle menu
   }
