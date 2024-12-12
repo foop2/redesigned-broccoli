@@ -1,6 +1,6 @@
 let N = 256;
 let iter = 16;
-let SCALE = 5; //this variable from 4 to 5 fixed the scaling issue 
+let SCALE = 5; //this variable from 4 to 5 fixed scale, but slider on sides better
 let t = 0;
 let crazyVarR = 7;
 let crazyVarG = 13;
