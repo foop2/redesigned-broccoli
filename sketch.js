@@ -2,26 +2,26 @@ let fluid;
 let isPaused = false;
 let isCrazy = false;
 let menuScreen = true;
+let slider;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(24);
   fluid = new Fluid(0.2, 0, 0.0000001);
+  slider = createSlider(0, 255, 0);
+  slider.position(windowWidth, windowHeight);
+  slider.size(80);
 }
 //resizes canvas to fit window
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight)
+  slider.position(windowWidth, windowHeight);
 }
 
 function draw() {
   stroke(51);
   strokeWeight(2);
   
-  //menu
-  if (menuScreen === true) {
-      fill('gray')
-      rect(0, 0, width, height)
-  }
   
   if (isPaused) {
     push();
@@ -76,9 +76,7 @@ function keyPressed() {
   } else if (key === 'c' && isPaused === false) {
     isCrazy = !isCrazy;  // toggle crazy but only if unpaused
   } else if (key === 'd') {
-    console.log(`isPaused is ${isPaused}`)
-    console.log(`isCrazy is ${isCrazy}`)
-    console.log(`menuScreen is ${menuScreen}`)
+    console.log(`isPaused is ${isPaused}, isCrazy is ${isCrazy}, menuScreen is ${menuScreen} `)
   } else if (key === 'm') {
     menuScreen = !menuScreen;  // toggle menu
   }
